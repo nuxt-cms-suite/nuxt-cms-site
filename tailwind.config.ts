@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
+import * as Theme from "tailwindcss/defaultTheme";
 const srcDir = "./";
+const defaultTheme = Theme;
 export default {
   content: [
     `${srcDir}/components/**/*.{vue,js,ts,jsx,tsx}`,
@@ -17,6 +19,15 @@ export default {
   presets: [],
   darkMode: "media", // or 'class'
   theme: {
+    extend: {
+      fontFamily: {
+        roboto: ['"Roboto"', ...defaultTheme.fontFamily.sans],
+        "roboto-condensed": [
+          '"Roboto Condensed"',
+          ...defaultTheme.fontFamily.sans,
+        ],
+      },
+    },
     accentColor: ({ theme }) => ({
       ...theme("colors"),
       auto: "auto",
