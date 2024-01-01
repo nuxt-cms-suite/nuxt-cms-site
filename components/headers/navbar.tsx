@@ -9,6 +9,7 @@ import NavbarLogo from "./navbar-logo";
 import NavbarDekstopChild from "./dekstop/navbar-child";
 import NavbarDekstopChildTrigger from "./dekstop/navbar-child-trigger";
 import NavbarDekstopChildItem from "./dekstop/navbar-child-item";
+import NavbarMenuTrigger from "./mobile/navbar-menu-trigger";
 
 /* eslint-disable no-use-before-define */
 export type NavbarLink = {
@@ -41,6 +42,7 @@ const NavbarDekstopItems = defineComponent({
     }
   },
   render(){
+
     const hasChildren = (itemID: number) => typeof this.$props.linkItems[itemID].children !== "undefined";
 
     return this.$props.linkItems.map((linkItem, index) => {
@@ -91,6 +93,14 @@ export default defineComponent({
       default: [] as NavbarProps["links"],
     },
   },
+  setup(){
+    const state = reactive({
+      isOpen: false,
+    });
+    return {
+      state
+    }
+  },
   render() {
     return (
       <header class="bg-white font-roboto-condensed">
@@ -99,27 +109,10 @@ export default defineComponent({
           aria-label="Global"
         >
           <NavbarLogo logoText="MyAwesomeSite" logoImgURL={"https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"}/>
-          <div class="flex lg:hidden">
-            <button
-              type="button"
-              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            >
-              <span class="sr-only">Open main menu</span>
-              <svg
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            </button>
+          <div class={["flex lg:hidden", {
+            "z-20": this.state.isOpen
+          }]}>
+            <NavbarMenuTrigger v-model:isOpen={this.state.isOpen} mode="Dekstop"/>
           </div>
           <div class="hidden lg:flex lg:gap-x-12">
             <NavbarDekstopItems linkItems={this.links}/>
@@ -132,10 +125,16 @@ export default defineComponent({
         </nav>
         
         {/* <!-- Mobile menu, show/hide based on menu open state. --> */}
-        <div class="lg:hidden" role="dialog" aria-modal="true">
+        <div class={["lg:hidden",  {
+            "hidden": !this.state.isOpen
+          }]} role="dialog" aria-modal="true">
           {/* <!-- Background backdrop, show/hide based on slide-over state. --> */}
-          <div class="fixed inset-0 z-10"></div>
-          <div class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div class={["fixed inset-0 z-10 transition-all ease-in-out duration-150", {
+            "backdrop-blur-sm": this.state.isOpen
+          }]}>
+              {/* <NavbarMenuTrigger v-model:isOpen={this.state.isOpen} class={["fixed inset-y-0 right-0"]}/> */}
+          </div>
+          <div class={["fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"]}>
             <div class="flex items-center justify-between">
               <a href="#" class="-m-1.5 p-1.5">
                 <span class="sr-only">Your Company</span>
@@ -145,26 +144,7 @@ export default defineComponent({
                   alt=""
                 />
               </a>
-              <button
-                type="button"
-                class="-m-2.5 rounded-md p-2.5 text-gray-700"
-              >
-                <span class="sr-only">Close menu</span>
-                <svg
-                  class="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
+              <NavbarMenuTrigger v-model:isOpen={this.state.isOpen} mode="Mobile"/>
             </div>
             <div class="mt-6 flow-root">
               <div class="-my-6 divide-y divide-gray-500/10">
