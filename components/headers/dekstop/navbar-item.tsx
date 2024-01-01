@@ -14,7 +14,7 @@ export default defineComponent({
     return (
       <NuxtLink
         class={["text-sm font-semibold leading-6 text-gray-900"]}
-        href={this.$props.item.href}
+        to={this.$props.item.href}
         v-slots={{
           default: () => this.$props.item.text,
         }}

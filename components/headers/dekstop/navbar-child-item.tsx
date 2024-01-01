@@ -1,6 +1,7 @@
 /* eslint-disable vue/require-default-prop */
 import type { PropType } from "vue";
 import type { NavbarChildItem } from "../navbar";
+import { NuxtLink } from "#components";
 
 export default defineComponent({
   name: "NavbarDekstopChildItem",
@@ -14,10 +15,20 @@ export default defineComponent({
           {this.linkItem?.icon}
         </div>
         <div class="flex-auto">
-          <a href="#" class="block font-semibold text-gray-900">
-            {this.linkItem?.title}
-            <span class="absolute inset-0"></span>
-          </a>
+          <NuxtLink
+            to={"/"}
+            class="block font-semibold text-gray-900"
+            v-slots={{
+              default: () => {
+                return (
+                  <div>
+                    {this.linkItem?.title}
+                    <span class="absolute inset-0"></span>
+                  </div>
+                );
+              },
+            }}
+          />
           <p class="mt-1 text-gray-600">{this.linkItem?.subTitle}</p>
         </div>
       </div>
