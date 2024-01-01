@@ -3,7 +3,7 @@ import type { NavbarLink } from "../navbar";
 import { NuxtLink } from "#components";
 
 export default defineComponent({
-  name: "DekstopNavbarItem",
+  name: "NavbarDekstopItem",
   props: {
     item: {
       type: Object as PropType<NavbarLink>,
