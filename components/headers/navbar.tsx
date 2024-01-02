@@ -124,15 +124,14 @@ export default defineComponent({
           </div>
         </nav>
         
-        {/* <!-- Mobile menu, show/hide based on menu open state. --> */}
+        {/* Mobile menu, show/hide based on menu open state. */}
         <div class={["lg:hidden",  {
             "hidden": !this.state.isOpen
           }]} role="dialog" aria-modal="true">
-          {/* <!-- Background backdrop, show/hide based on slide-over state. --> */}
+          {/* Background backdrop, show/hide based on slide-over state. */}
           <div class={["fixed inset-0 z-10 transition-all ease-in-out duration-150", {
-            "backdrop-blur-sm": this.state.isOpen
+            "backdrop-blur-md": this.state.isOpen
           }]}>
-              {/* <NavbarMenuTrigger v-model:isOpen={this.state.isOpen} class={["fixed inset-y-0 right-0"]}/> */}
           </div>
           <div class={["fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"]}>
             <div class="flex items-center justify-between">
@@ -157,11 +156,10 @@ export default defineComponent({
                       aria-expanded="false"
                     >
                       Product
-                      {/* <!--
+                      {/*
                         Expand/collapse icon, toggle classes based on menu open state.
-
                         Open: "rotate-180", Closed: ""
-                      --> */}
+                      */}
                       <svg
                         class="h-5 w-5 flex-none"
                         viewBox="0 0 20 20"
@@ -175,7 +173,6 @@ export default defineComponent({
                         />
                       </svg>
                     </button>
-                    {/* <!-- 'Product' sub-menu, show/hide based on menu state. --> */}
                     <div class="mt-2 space-y-2" id="disclosure-1">
                       <a
                         href="#"
