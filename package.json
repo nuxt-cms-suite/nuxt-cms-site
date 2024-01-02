@@ -11,7 +11,7 @@
     "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
     "lint:prettier": "prettier --check .",
     "lint": "pnpm lint:js && pnpm lint:prettier",
-    "lintfix": "prettier --write --list-different . && pnpm lint:js --fix",
+    "lint:fix": "prettier --write --list-different . && pnpm lint:js --fix",
     "shad": "npx shadcn-vue@latest",
     "shad:init": "npm run shad init",
     "shad:component": "npm run shad add"
@@ -32,11 +32,16 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@vee-validate/zod": "^4.12.4",
+    "@vueuse/core": "^10.7.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-vue-next": "^0.303.0",
     "radix-vue": "^1.2.5",
     "tailwind-merge": "^2.2.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "v-calendar": "^3.1.2",
+    "vee-validate": "^4.12.4",
+    "zod": "^3.22.4"
   }
 }

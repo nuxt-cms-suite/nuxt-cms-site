@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable vue/one-component-per-file */
 /* eslint-disable prettier/prettier */
- 
+
 import type { PropType, VNode } from "vue";
 import NavbarDekstopItem from "./dekstop/navbar-item";
 import MobileNavbarItem from "./mobile/navbar-item";
@@ -39,29 +39,32 @@ const NavbarDekstopItems = defineComponent({
       type: Object as PropType<NavbarProps["links"]>,
       required: true,
       default: [] as NavbarProps["links"],
-    }
+    },
   },
-  render(){
-
-    const hasChildren = (itemID: number) => typeof this.$props.linkItems[itemID].children !== "undefined";
+  render() {
+    const hasChildren = (itemID: number) =>
+      typeof this.$props.linkItems[itemID].children !== "undefined";
 
     return this.$props.linkItems.map((linkItem, index) => {
-      if(hasChildren(index)) {
-        return <NavbarDekstopChild children={this.$props.linkItems[index].children} v-slots={{
-          trigger: () => (
-            <NavbarDekstopChildTrigger text={linkItem.text} />
-          ),
-          child: (props: NavbarChild) => {
-            return props.items.map((childItem) => {
-              return <NavbarDekstopChildItem linkItem={childItem}/>
-            })
-          }
-        }}/>
+      if (hasChildren(index)) {
+        return (
+          <NavbarDekstopChild
+            children={this.$props.linkItems[index].children}
+            v-slots={{
+              trigger: () => <NavbarDekstopChildTrigger text={linkItem.text} />,
+              child: (props: NavbarChild) => {
+                return props.items.map((childItem) => {
+                  return <NavbarDekstopChildItem linkItem={childItem} />;
+                });
+              },
+            }}
+          />
+        );
       }
-      return <NavbarDekstopItem item={linkItem}/>
-    })
-  }
-})
+      return <NavbarDekstopItem item={linkItem} />;
+    });
+  },
+});
 
 const RenderMobileNavbarItems = defineComponent({
   name: "RenderMobileNavbarItems",
@@ -70,19 +73,20 @@ const RenderMobileNavbarItems = defineComponent({
       type: Object as PropType<NavbarProps["links"]>,
       required: true,
       default: [] as NavbarProps["links"],
-    }
+    },
   },
-  render(){
-    const hasChildren = (itemID: number) => typeof this.$props.linkItems[itemID].children !== "undefined";
+  render() {
+    const hasChildren = (itemID: number) =>
+      typeof this.$props.linkItems[itemID].children !== "undefined";
 
     return this.$props.linkItems.map((linkItem, index) => {
-      if(hasChildren(index)) {
+      if (hasChildren(index)) {
         return;
       }
-      return <MobileNavbarItem item={linkItem}/>
-    })
-  }
-})
+      return <MobileNavbarItem item={linkItem} />;
+    });
+  },
+});
 
 export default defineComponent({
   name: "NavbarHeaderComponent",
@@ -93,13 +97,13 @@ export default defineComponent({
       default: [] as NavbarProps["links"],
     },
   },
-  setup(){
+  setup() {
     const state = reactive({
       isOpen: false,
     });
     return {
-      state
-    }
+      state,
+    };
   },
   render() {
     return (
@@ -108,14 +112,27 @@ export default defineComponent({
           class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
-          <NavbarLogo logoText="MyAwesomeSite" logoImgURL={"https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"}/>
-          <div class={["flex lg:hidden", {
-            "z-20": this.state.isOpen
-          }]}>
-            <NavbarMenuTrigger v-model:isOpen={this.state.isOpen} mode="Dekstop"/>
+          <NavbarLogo
+            logoText="MyAwesomeSite"
+            logoImgURL={
+              "https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            }
+          />
+          <div
+            class={[
+              "flex lg:hidden",
+              {
+                "z-20": this.state.isOpen,
+              },
+            ]}
+          >
+            <NavbarMenuTrigger
+              v-model:isOpen={this.state.isOpen}
+              mode="Dekstop"
+            />
           </div>
           <div class="hidden lg:flex lg:gap-x-12">
-            <NavbarDekstopItems linkItems={this.links}/>
+            <NavbarDekstopItems linkItems={this.links} />
           </div>
           <div class="hidden lg:flex lg:flex-1 lg:justify-end">
             <a href="#" class="text-sm font-semibold leading-6 text-gray-900">
@@ -123,17 +140,32 @@ export default defineComponent({
             </a>
           </div>
         </nav>
-        
+
         {/* Mobile menu, show/hide based on menu open state. */}
-        <div class={["lg:hidden",  {
-            "hidden": !this.state.isOpen
-          }]} role="dialog" aria-modal="true">
+        <div
+          class={[
+            "lg:hidden",
+            {
+              hidden: !this.state.isOpen,
+            },
+          ]}
+          role="dialog"
+          aria-modal="true"
+        >
           {/* Background backdrop, show/hide based on slide-over state. */}
-          <div class={["fixed inset-0 z-10 transition-all ease-in-out duration-150", {
-            "backdrop-blur-md": this.state.isOpen
-          }]}>
-          </div>
-          <div class={["fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"]}>
+          <div
+            class={[
+              "fixed inset-0 z-10 transition-all ease-in-out duration-150",
+              {
+                "backdrop-blur-md": this.state.isOpen,
+              },
+            ]}
+          ></div>
+          <div
+            class={[
+              "fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10",
+            ]}
+          >
             <div class="flex items-center justify-between">
               <a href="#" class="-m-1.5 p-1.5">
                 <span class="sr-only">Your Company</span>
@@ -143,7 +175,10 @@ export default defineComponent({
                   alt=""
                 />
               </a>
-              <NavbarMenuTrigger v-model:isOpen={this.state.isOpen} mode="Mobile"/>
+              <NavbarMenuTrigger
+                v-model:isOpen={this.state.isOpen}
+                mode="Mobile"
+              />
             </div>
             <div class="mt-6 flow-root">
               <div class="-my-6 divide-y divide-gray-500/10">
@@ -218,7 +253,7 @@ export default defineComponent({
                       </a>
                     </div>
                   </div>
-                  <RenderMobileNavbarItems linkItems={this.links}/>
+                  <RenderMobileNavbarItems linkItems={this.links} />
                 </div>
                 <div class="py-6">
                   <a
