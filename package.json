@@ -11,7 +11,10 @@
     "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
     "lint:prettier": "prettier --check .",
     "lint": "pnpm lint:js && pnpm lint:prettier",
-    "lintfix": "prettier --write --list-different . && pnpm lint:js --fix"
+    "lintfix": "prettier --write --list-different . && pnpm lint:js --fix",
+    "shad": "npx shadcn-vue@latest",
+    "shad:init": "npm run shad init",
+    "shad:component": "npm run shad add"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
@@ -22,9 +25,18 @@
     "eslint-plugin-prettier": "^5.1.2",
     "nuxt": "^3.9.0",
     "prettier": "^3.1.1",
+    "shadcn-nuxt": "^0.8.6",
     "tailwindcss-classnames": "^3.1.0",
     "typescript": "^5.3.3",
     "vue": "^3.4.0",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "lucide-vue-next": "^0.303.0",
+    "radix-vue": "^1.2.5",
+    "tailwind-merge": "^2.2.0",
+    "tailwindcss-animate": "^1.0.7"
   }
 }
